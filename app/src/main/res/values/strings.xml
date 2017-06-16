@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">工资计算器</string>
+    <string name="yearly_bonus">年终奖</string>
+</resources>
