@@ -1,24 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<com.maxwell.jazzyviewpager.JazzyViewPager
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/jazzyPager"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/app_bg"
-    tools:context="com.maxwell.taxhelper.MainActivity">
-
-    <EditText
-        android:id="@+id/salaryInput"
-        android:layout_width="match_parent"
-        android:textSize="28sp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="100dp"
-        android:hint="@string/yearly_bonus"
-        android:background="@drawable/ic_bottom_edit"
-        android:textColorHint="#9a9da0"
-        android:gravity="center"
-        android:inputType="numberSigned"
-        android:imeActionLabel="计算"
-        android:textCursorDrawable="@drawable/edittext_cursor"
-        android:layout_height="wrap_content" />
-</RelativeLayout>
+    android:layout_height="match_parent" />

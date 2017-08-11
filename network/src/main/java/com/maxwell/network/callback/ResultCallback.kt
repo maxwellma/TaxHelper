@@ -6,17 +6,14 @@ import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
 
-
 /**
  * Created by maxwellma on 11/06/2017.
  */
 abstract class ResultCallback<T> {
 
-    var type : Type? = null
+    val mType : Type = getSuperclassTypeParameter(javaClass)
+    var mStatusCode : Int = 0
 
-    constructor() {
-        getSuperclassTypeParameter(javaClass)
-    }
 
     companion object {
         fun getSuperclassTypeParameter(subclass : Class<*>) : Type {
@@ -26,9 +23,18 @@ abstract class ResultCallback<T> {
             }
             return `$Gson$Types`.canonicalize((superClass as ParameterizedType).actualTypeArguments[0])
         }
+        val DEFAULT_RESULT_CALLBACK: ResultCallback<String> = object : ResultCallback<String>() {
+            override fun onError(request: Request, e: Exception) {
+
+            }
+
+            override fun onResponse(response: String) {
+
+            }
+        }
     }
 
-    open fun onBefore(request : Request){}
+    open fun onBefore(request: Request){}
 
     open fun onAfter() {}
 
@@ -38,17 +44,7 @@ abstract class ResultCallback<T> {
 
     abstract fun onResponse(response: T)
 
-    open fun onResponse(request: Request, response: T) {
+    open fun onResponse(request: Request?, response:  T) {
         onResponse(response)
-    }
-
-    val DEFAULT_RESULT_CALLBACK: ResultCallback<String> = object : ResultCallback<String>() {
-        override fun onError(request: Request, e: Exception) {
-
-        }
-
-        override fun onResponse(response: String) {
-
-        }
     }
 }

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/app_bg"
+    android:orientation="vertical"
+    android:padding="50dp">
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        style="@style/RatingStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:rating="3"
+        android:stepSize="1" />
+
+    <TextView
+        android:id="@+id/ratingTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ratingBar"
+        android:textSize="20sp"
+        android:textColor="@color/b1"
+        android:layout_centerHorizontal="true"
+        android:text="@string/title_rich"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ratingTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="40dp"
+        android:text="100000"
+        android:textSize="45sp" />
+
+    <TextView
+        android:id="@+id/valueDesp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/value"
+        android:layout_centerHorizontal="true"
+        android:text="@string/bonus_after_tax"
+        android:textColor="@color/b2"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/back"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:textSize="14sp"
+        android:text="@string/re_calculate"
+        android:layout_below="@id/value"
+        style="@style/BottomButtonStyle" />
+</RelativeLayout>

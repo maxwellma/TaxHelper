@@ -1,4 +1,16 @@
 <resources>
     <string name="app_name">工资计算器</string>
-    <string name="yearly_bonus">年终奖</string>
+    <string name="yearly_bonus">年终奖金额</string>
+    <string name="yearly_bonus_tax">年终奖个人所得税计算器</string>
+    <string name="bonus_after_tax_result">年终奖税后结果</string>
+    <string name="bonus_after_tax">税后可得</string>
+    <string name="calculate">开始计算</string>
+    <string name="re_calculate">重新计算</string>
+    
+
+    <string name="title_little">温饱</string>
+    <string name="title_average">小康</string>
+    <string name="title_good">殷实</string>
+    <string name="title_vice_rich">准土豪</string>
+    <string name="title_rich">土豪</string>
 </resources>

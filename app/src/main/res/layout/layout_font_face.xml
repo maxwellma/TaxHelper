@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/app_bg"
+    android:focusable="true"
+    tools:context="com.maxwell.taxhelper.MainActivity">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/yearly_bonus_tax"
+        android:textColor="@color/b1"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="18sp" />
+
+
+    <EditText
+        android:id="@+id/salaryInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="50dp"
+        android:layout_below="@id/title"
+        android:background="@drawable/ic_bottom_edit"
+        android:gravity="center"
+        android:hint="@string/yearly_bonus"
+        android:imeActionLabel="计算"
+        android:inputType="numberSigned"
+        android:textColorHint="@color/b2"
+        android:textCursorDrawable="@drawable/edittext_cursor"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/submit"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:textSize="14sp"
+        android:text="@string/calculate"
+        android:layout_below="@id/salaryInput"
+        style="@style/BottomButtonStyle" />
+</RelativeLayout>

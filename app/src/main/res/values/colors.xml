@@ -3,4 +3,47 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="blue_description">#cbe8ee</color>
+    <color name="a1">#ff673f</color>
+    <color name="a2">#5fcdd3</color>
+    <color name="a3">#ff7859</color>
+    <color name="a4">#55c4dc</color>
+    <color name="a5">#408c98</color>
+    <color name="a6">#74d4e3</color>
+    <color name="a7">#87bac4</color>
+    <color name="a8">#0dc6b6</color>
+    <color name="a9">#2ea3db</color>
+
+    <color name="b1">#333e45</color>
+    <color name="b2">#9a9da0</color>
+    <color name="b3">#dfdfdf</color>
+    <color name="b4">#f4f4f4</color>
+
+    <color name="bg_blue_start">#9ad2dc</color>
+
+    <color name="c1_start">#ff814f</color>
+    <color name="c1_end">@color/a1</color>
+
+    <color name="c2_start">#9ee5ee</color>
+    <color name="c2_end">@color/a6</color>
+
+    <color name="c3_start">#ff4473</color>
+    <color name="c3_end">#ff673f</color>
+
+    <color name="c4_start">#5fcdd3</color>
+    <color name="c4_end">#33b8d5</color>
+    <color name="bg_blue_middle">#a2d5dd</color>
+
+    <color name="water_blue">#54a5b2</color>
+    <color name="dark_tiffany_blue">#49b4bb</color>
+    <color name="light_tiffany_blue">#6bd7dd</color>
+    <color name="de_gray">#dedede</color>
+    <color name="light_blue">#e0eef1</color>
+    <color name="alert_red">#ff322c</color>
+    <color name="light_orange">#ffe8e2</color>
+    <color name="dark_orange">#ff5f5f</color>
+    <color name="water_orange">#ff939d</color>
+    <color name="dark_water_orange">#ff4355</color>
+    <color name="orange_transparent_bg">@color/light_orange</color>
+    <color name="bg_blue_tips">#e8f2f5</color>
 </resources>

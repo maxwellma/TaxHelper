@@ -1,4 +1,4 @@
-package taxhelper.maxwell.com.taxhelper;
+package com.maxwell.jazzyviewpager;
 
 import org.junit.Test;
 
