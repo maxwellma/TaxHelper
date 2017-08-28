@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">工资计算器</string>
+    <string name="annual_bonus_entry">年终奖计算</string>
+    <string name="month_salary_entry">月薪计算</string>
     <string name="yearly_bonus">年终奖金额</string>
     <string name="yearly_bonus_tax">年终奖个人所得税计算器</string>
     <string name="bonus_after_tax_result">年终奖税后结果</string>

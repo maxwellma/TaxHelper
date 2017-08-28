@@ -1,6 +1,40 @@
-<com.maxwell.jazzyviewpager.JazzyViewPager
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/jazzyPager"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent"
+    android:background="@drawable/app_bg">
+
+
+    <TextView
+        android:id="@+id/annual_entry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="240dp"
+        android:background="@drawable/annual_bonus_bg"
+        android:paddingBottom="15dp"
+        android:paddingLeft="60dp"
+        android:paddingRight="60dp"
+        android:paddingTop="15dp"
+        android:text="@string/annual_bonus_entry"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/month_entry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/annual_entry"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="-200dp"
+        android:background="@drawable/month_salary_bg"
+        android:gravity="center"
+        android:layout_alignLeft="@id/annual_entry"
+        android:layout_alignRight="@id/annual_entry"
+        android:paddingBottom="15dp"
+        android:paddingLeft="60dp"
+        android:paddingRight="60dp"
+        android:paddingTop="15dp"
+        android:text="@string/month_salary_entry"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
+</RelativeLayout>

@@ -1,6 +1,7 @@
 package com.maxwell.taxhelper
 
 import android.app.Application
+import com.maxwell.projectfoundation.Router
 import com.tendcloud.tenddata.TCAgent
 
 /**
@@ -12,6 +13,7 @@ class MCApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        Router.getInstance().initialize(this)
         TCAgent.init(this@MCApplication, APP_ID, "officialSite")
         TCAgent.setReportUncaughtExceptions(true)
     }
