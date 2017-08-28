@@ -16,8 +16,9 @@ import android.widget.EditText
 import android.widget.RatingBar
 import android.widget.TextView
 import com.maxwell.jazzyviewpager.JazzyViewPager
+import com.maxwell.projectfoundation.util.FontUtil
+import com.tendcloud.tenddata.TCAgent
 import kotlinx.android.synthetic.main.activity_main.*
-import taxhelper.maxwell.com.taxhelper.R
 
 
 class MainActivity : Activity() {
@@ -26,6 +27,16 @@ class MainActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initViews()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        TCAgent.onPageStart(this, "main")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        TCAgent.onPageEnd(this, "main")
     }
 
     private fun initViews() {
@@ -109,7 +120,7 @@ class MainActivity : Activity() {
                     level = 3
                     desp = getString(R.string.title_good)
                 }
-                in 30000f..5000f -> {
+                in 30000f..50000f -> {
                     level = 4
                     desp = getString(R.string.title_vice_rich)
                 }
@@ -119,37 +130,31 @@ class MainActivity : Activity() {
                 }
             }
             when (monthlyAmount) {
-                in 0f..500f -> {
-                    bonusResult = amount * (1 - 0.05f)
+                in 0f..1500f -> {
+                    bonusResult = amount * (1 - 0.03f)
                 }
-                in 500f..2000f -> {
-                    bonusResult = amount * (1 - 0.1f) - 25
+                in 1500f..4500f -> {
+                    bonusResult = amount * (1 - 0.1f) + 105
                 }
-                in 2000f..5000f -> {
-                    bonusResult = amount * (1 - 0.15f) - 125
+                in 4500f..9000f -> {
+                    bonusResult = amount * (1 - 0.2f) + 555
                 }
-                in 5000f..20000f -> {
-                    bonusResult = amount * (1 - 0.2f) - 375
+                in 9000f..35000f -> {
+                    bonusResult = amount * (1 - 0.25f) + 10055
                 }
-                in 20000f..40000f -> {
-                    bonusResult = amount * (1 - 0.25f) - 1375
+                in 350000f..55000f -> {
+                    bonusResult = amount * (1 - 0.3f) + 2755
                 }
-                in 400000f..60000f -> {
-                    bonusResult = amount * (1 - 0.3f) - 3375
-                }
-                in 600000f..80000f -> {
-                    bonusResult = amount * (1 - 0.35f) - 6375
-                }
-                in 800000f..100000f -> {
-                    bonusResult = amount * (1 - 0.4f) - 10375
+                in 550000f..80000f -> {
+                    bonusResult = amount * (1 - 0.35f) + 5505
                 }
                 else -> {
-                    bonusResult = amount * (1 - 0.45f) - 15375
+                    bonusResult = amount * (1 - 0.45f) + 13505
                 }
             }
             (resultView?.findViewById(R.id.ratingBar) as RatingBar).rating = level.toFloat()
             (resultView?.findViewById(R.id.ratingTitle) as TextView).text = desp
-            if (bonusResult * 100 % 100 > 0) {
+            if (bonusResult.compareTo(bonusResult.toInt()) != 0) {
                 (resultView?.findViewById(R.id.value) as TextView).setText("%.2f".format(bonusResult))
             } else {
                 (resultView?.findViewById(R.id.value) as TextView).setText("%.0f".format(bonusResult))

@@ -1,4 +1,4 @@
-package com.maxwell.taxhelper
+package com.maxwell.projectfoundation.util
 
 import android.content.Context
 import android.graphics.Typeface

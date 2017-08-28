@@ -1,1 +1,1 @@
-include ':app', ':network', ':jazzyviewpager'
+include ':app', ':network', ':jazzyviewpager', ':mclib', ':projectfoundation'

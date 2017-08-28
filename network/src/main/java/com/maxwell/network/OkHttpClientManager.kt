@@ -140,7 +140,7 @@ class OkHttpClientManager {
     fun sendSuccessResultCallback(request: Request?, `object`: Any, callback: ResultCallback<*>?) {
         if (callback == null) return
         mDelivery.post {
-            callback!!.onResponse(request,  `object`)
+            //callback!!.onResponse(request,  `object`)
             callback!!.onAfter()
         }
     }

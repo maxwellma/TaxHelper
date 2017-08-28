@@ -6,9 +6,9 @@ android {
     compileSdkVersion 24
     buildToolsVersion '25.0.1'
     defaultConfig {
-        applicationId "taxhelper.maxwell.com.taxhelper"
+        applicationId "com.maxwell.taxhelper"
         minSdkVersion 14
-        targetSdkVersion 24
+        targetSdkVersion 20
         versionCode 1
         versionName "1.0"
     }
@@ -22,13 +22,12 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     compile 'com.squareup.okhttp3:okhttp:3.8.0'
     compile 'com.google.code.gson:gson:2.8.1'
     compile project(':jazzyviewpager')
+    compile project(':mclib')
+    compile project(':projectfoundation')
 }
 repositories {
     mavenCentral()
