@@ -69,6 +69,7 @@ class Router {
             for((key, value) in params) {
                 builder.appendQueryParameter(key, value)
             }
+            uri = builder.build()
         }
         if (StringUtils.isNotEmpty(target)) {
             var intent = Intent()

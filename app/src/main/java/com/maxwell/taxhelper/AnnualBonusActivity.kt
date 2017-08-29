@@ -16,6 +16,7 @@ import android.widget.EditText
 import android.widget.RatingBar
 import android.widget.TextView
 import com.maxwell.jazzyviewpager.JazzyViewPager
+import com.maxwell.projectfoundation.BaseActivity
 import com.maxwell.projectfoundation.util.FontUtil
 import com.tendcloud.tenddata.TCAgent
 import kotlinx.android.synthetic.main.activity_annual_bonus.*
@@ -24,7 +25,7 @@ import org.apache.commons.lang3.StringUtils
 /**
  * Created by maxwellma on 28/08/2017.
  */
-class AnnualBonusActivity : Activity() {
+class AnnualBonusActivity : BaseActivity() {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

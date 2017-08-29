@@ -1,15 +1,15 @@
 package com.maxwell.taxhelper
 
-import android.app.Activity
 import android.os.Bundle
 import android.widget.Toast
+import com.maxwell.projectfoundation.BaseActivity
 import com.maxwell.projectfoundation.Router
 import com.maxwell.projectfoundation.util.ToastUtil
 import com.tendcloud.tenddata.TCAgent
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : Activity() {
+class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
