@@ -1,40 +1,96 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/app_bg">
+    android:background="@color/app_yellow">
 
 
-    <TextView
-        android:id="@+id/annual_entry"
-        android:layout_width="wrap_content"
+    <TableLayout
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="240dp"
-        android:background="@drawable/annual_bonus_bg"
-        android:paddingBottom="15dp"
-        android:paddingLeft="60dp"
-        android:paddingRight="60dp"
-        android:paddingTop="15dp"
-        android:text="@string/annual_bonus_entry"
-        android:textColor="@android:color/white"
-        android:textSize="16sp" />
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="90dp"
+        android:background="@drawable/stroke_dark_yellow"
+        android:minHeight="350dp"
+        android:orientation="vertical"
+        android:paddingRight="30dp"
+        android:paddingTop="30dp"
+        android:paddingBottom="60dp"
+        android:paddingLeft="30dp">
 
-    <TextView
-        android:id="@+id/month_entry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/annual_entry"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="-200dp"
-        android:background="@drawable/month_salary_bg"
-        android:gravity="center"
-        android:layout_alignLeft="@id/annual_entry"
-        android:layout_alignRight="@id/annual_entry"
-        android:paddingBottom="15dp"
-        android:paddingLeft="60dp"
-        android:paddingRight="60dp"
-        android:paddingTop="15dp"
-        android:text="@string/month_salary_entry"
-        android:textColor="@android:color/white"
-        android:textSize="16sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/app_light_yellow"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="@string/calculator"
+            android:textColor="@color/app_dark_yellow"
+            android:textSize="16sp" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/month_entry"
+                android:layout_width="105dp"
+                android:layout_height="105dp"
+                android:background="@drawable/entry_orange_button"
+                android:gravity="center"
+                android:text="@string/month_salary_entry"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="30dp"
+                android:layout_height="1dp"
+                android:background="@android:color/white" />
+
+            <TextView
+                android:id="@+id/annual_entry"
+                android:layout_width="105dp"
+                android:layout_height="105dp"
+                android:background="@drawable/entry_orange_button"
+                android:gravity="center"
+                android:text="@string/annual_bonus_entry"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="105dp"
+                android:layout_height="105dp"
+                android:background="@drawable/entry_grey_button"
+                android:gravity="center"
+                android:text="+"
+                android:textColor="@android:color/white"
+                android:textSize="36sp" />
+
+            <View
+                android:layout_width="30dp"
+                android:layout_height="1dp"
+                android:background="@android:color/white" />
+
+            <TextView
+                android:layout_width="105dp"
+                android:layout_height="105dp"
+                android:background="@drawable/entry_grey_button"
+                android:gravity="center"
+                android:text="="
+                android:textColor="@android:color/white"
+                android:textSize="36sp" />
+        </TableRow>
+    </TableLayout>
+
+
 </RelativeLayout>

@@ -18,10 +18,10 @@
     <ImageView
         android:id="@+id/title"
         android:layout_width="250dp"
-        android:layout_height="96dp"
+        android:layout_height="83dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:src="@drawable/ic_bonuslogo" />
+        android:src="@drawable/ic_salarylogo" />
 
     <LinearLayout
         android:id="@+id/inputFrame"
@@ -30,7 +30,7 @@
         android:layout_below="@id/title"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="70dp"
         android:background="@drawable/stroke_dark_yellow"
         android:orientation="vertical"
         android:paddingBottom="30dp">
@@ -67,4 +67,18 @@
             android:text="@string/calculate"
             android:textSize="14sp" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/inputFrame"
+        android:layout_below="@id/title"
+        android:layout_marginTop="40dp"
+        android:drawablePadding="5dp"
+        android:drawableRight="@drawable/ic_fanye"
+        android:paddingRight="15dp"
+        android:text="点击选择城市"
+        android:textColor="@android:color/white"
+        android:textSize="14sp" />
 </RelativeLayout>

@@ -1,13 +1,21 @@
 <resources>
-    <string name="app_name">工资计算器</string>
+    <string name="app_name">工资助手</string>
+    <string name="calculator">工资计算器</string>
     <string name="annual_bonus_entry">年终奖计算</string>
     <string name="month_salary_entry">月薪计算</string>
     <string name="yearly_bonus">年终奖金额</string>
+    <string name="month_salary">请输入金额</string>
     <string name="yearly_bonus_tax">年终奖个人所得税计算器</string>
+    <string name="month_salary_tax">月薪个人所得税计算器</string>
     <string name="bonus_after_tax_result">年终奖税后结果</string>
     <string name="bonus_after_tax">税后可得</string>
     <string name="calculate">开始计算</string>
     <string name="re_calculate">重新计算</string>
+    <string name="click_to_switch">点击切换</string>
+    <string name="city_list">城市列表</string>
+
+    <string name="tax_detail">五险一金及个税明细</string>
+    <string name="tax_distribution__detail">工资税后分布</string>
     
 
     <string name="title_little">温饱</string>
@@ -15,4 +23,23 @@
     <string name="title_good">殷实</string>
     <string name="title_vice_rich">准土豪</string>
     <string name="title_rich">土豪</string>
+
+    <string name="tax_item">汇缴项目</string>
+    <string name="personal_part">个人缴纳部分</string>
+    <string name="company_part">公司缴纳部分</string>
+
+    <string name="yanglao">养老保险</string>
+    <string name="yiliao">医疗保险</string>
+    <string name="shiye">失业保险</string>
+    <string name="jichuzfgjj">基本公积金</string>
+    <string name="buchongzfgjj">补充公积金</string>
+    <string name="gongshang">工伤保险</string>
+    <string name="shengyu">生育保险</string>
+    <string name="wuxian">五金总计</string>
+    <string name="exclude_wuxian">扣除五金后</string>
+    <string name="tax">个人所得税</string>
+    <string name="salary_final">到手月薪</string>
+
+    <string name="location_null">无法获取您的城市信息，请选择您所在的城市</string>
+    <string name="location_not_supported">暂时不支持您所在的城市，请选择其他城市~</string>
 </resources>

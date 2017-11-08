@@ -7,9 +7,13 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application
         android:name=".MCApplication"
@@ -21,23 +25,46 @@
         <activity
             android:name="com.maxwell.taxhelper.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme.NoTitle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <meta-data
                 android:name="moduleName"
-                android:value="shell"></meta-data>
+                android:value="shell" />
         </activity>
         <activity
             android:name=".AnnualBonusActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoTitle"
+            android:windowSoftInputMode="adjustNothing">
+            <meta-data
+                android:name="moduleName"
+                android:value="annualBonus" />
+        </activity>
+        <activity
+            android:name=".SalaryCalculateActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoTitle"
+            android:windowSoftInputMode="adjustNothing">
+            <meta-data
+                android:name="moduleName"
+                android:value="salary" />
+        </activity>
+        <activity
+            android:name=".CityListActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="moduleName"
-                android:value="annualBonus"></meta-data>
+                android:value="cityList" />
         </activity>
+
+        <service android:name="com.amap.api.location.APSService"></service>
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="87707618dfd3f5bcd9cb9371330e1055" />
     </application>
 
 </manifest>

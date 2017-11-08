@@ -1,21 +1,29 @@
 package com.maxwell.taxhelper
 
-import android.annotation.TargetApi
-import android.app.Activity
 import android.content.Context
-import android.os.Build
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.view.PagerAdapter
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.RatingBar
 import android.widget.TextView
+import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.formatter.PercentFormatter
+import com.github.mikephil.charting.utils.MPPointF
 import com.maxwell.jazzyviewpager.JazzyViewPager
+import com.maxwell.mclib.util.KeyBoardUtils
 import com.maxwell.projectfoundation.BaseActivity
 import com.maxwell.projectfoundation.util.FontUtil
 import com.tendcloud.tenddata.TCAgent
@@ -26,7 +34,9 @@ import org.apache.commons.lang3.StringUtils
  * Created by maxwellma on 28/08/2017.
  */
 class AnnualBonusActivity : BaseActivity() {
-    
+
+    var pageIndex = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_annual_bonus)
@@ -52,6 +62,16 @@ class AnnualBonusActivity : BaseActivity() {
 
     }
 
+    override fun onBackPressed() {
+        when (pageIndex) {
+            0 -> super.onBackPressed()
+            else -> {
+                jazzyPager.setCurrentItem(0, true)
+                pageIndex = 0
+            }
+        }
+    }
+
     inner class MainAdapter : PagerAdapter {
 
         var context: Context
@@ -59,31 +79,50 @@ class AnnualBonusActivity : BaseActivity() {
         var bonusResult: Float = 0.0f
         var desp: String? = null
         var resultView: View? = null
+        var mChart : PieChart? = null
 
         constructor(context: Context) {
             this.context = context
         }
 
-        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
         override fun instantiateItem(container: ViewGroup?, position: Int): Any {
             when (position) {
                 0 -> {
                     var view = LayoutInflater.from(context).inflate(R.layout.layout_font_face, container, false)
+                    view!!.findViewById(R.id.title_back).setOnClickListener(onBackClickedListener)
                     var salaryInput = view.findViewById(R.id.salaryInput) as EditText
                     FontUtil.setNumberFont(context, salaryInput)
                     salaryInput.setOnEditorActionListener { _, actionId, _ ->
                         when (actionId) {
-                            EditorInfo.IME_ACTION_DONE -> calculateAward(salaryInput)
+                            EditorInfo.IME_ACTION_DONE -> view.findViewById(R.id.submit).performClick()
                         }
                         true
                     }
+                    salaryInput.addTextChangedListener(object : TextWatcher {
+                        override fun afterTextChanged(editable: Editable?) {
+                            if (editable != null && editable.toString().length > 0) {
+                                salaryInput.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28f)
+                            } else {
+                                salaryInput.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+                            }
+                        }
+
+                        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                        }
+
+                        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                        }
+
+                    })
                     view.findViewById(R.id.submit).setOnClickListener { _ ->
                         if (!TextUtils.isEmpty(salaryInput.text.toString())) {
-                            hideKeyBoard(salaryInput)
+                            KeyBoardUtils.hideKeyboard(this@AnnualBonusActivity, salaryInput)
                             salaryInput.clearFocus()
+                            initChart()
                             calculateAward(salaryInput)
                             jazzyPager.postDelayed({ ->
                                 jazzyPager.setCurrentItem(1, true)
+                                pageIndex = 1
                                 salaryInput.setText("")
                             }, 500)
                         }
@@ -94,12 +133,15 @@ class AnnualBonusActivity : BaseActivity() {
                 }
                 else -> {
                     resultView = LayoutInflater.from(context).inflate(R.layout.layout_tax_result, container, false)
+                    mChart = resultView!!.findViewById(R.id.chart) as PieChart?
                     (resultView?.findViewById(R.id.ratingBar) as RatingBar).rating = level.toFloat()
-                    (resultView?.findViewById(R.id.value) as TextView).setText("%.2f".format(bonusResult))
+                    (resultView?.findViewById(R.id.value) as TextView).text = "%.2f".format(bonusResult)
+                    resultView!!.findViewById(R.id.thirdPart).visibility = View.GONE
                     FontUtil.setNumberFont(context, resultView?.findViewById(R.id.value) as TextView)
                     container?.addView(resultView)
                     (resultView?.findViewById(R.id.back))?.setOnClickListener { _ ->
                         (this@AnnualBonusActivity.jazzyPager as JazzyViewPager).setCurrentItem(0, true)
+                        pageIndex = 0
                     }
                     (this@AnnualBonusActivity.jazzyPager as JazzyViewPager).setObjectForPosition(resultView, position)
                     return resultView!!
@@ -107,8 +149,62 @@ class AnnualBonusActivity : BaseActivity() {
             }
         }
 
+        private fun initChart() {
+            mChart!!.setUsePercentValues(true)
+            mChart!!.description.isEnabled = false
+            mChart!!.setExtraOffsets(5f, 10f, 5f, 5f)
+
+            mChart!!.dragDecelerationFrictionCoef = 0.95f
+
+            mChart!!.isDrawHoleEnabled = true
+            mChart!!.setHoleColor(Color.WHITE)
+
+            mChart!!.setTransparentCircleColor(Color.WHITE)
+            mChart!!.setTransparentCircleAlpha(110)
+
+            mChart!!.holeRadius = 58f
+            mChart!!.transparentCircleRadius = 61f
+
+            mChart!!.setDrawCenterText(false)
+
+            mChart!!.rotationAngle = 0f
+            // enable rotation of the chart by touch
+            mChart!!.isRotationEnabled = true
+            mChart!!.isHighlightPerTapEnabled = true
+
+            mChart!!.animateY(1400, Easing.EasingOption.EaseInOutQuad)
+            mChart!!.setEntryLabelColor(Color.BLACK)
+            mChart!!.setEntryLabelTextSize(12f)
+            mChart!!.setDrawEntryLabels(false)
+        }
+
+        private fun fillChartData(entries: ArrayList<PieEntry>) {
+            var dataSet = PieDataSet(entries, "")
+
+            dataSet.setDrawIcons(false)
+
+            dataSet.sliceSpace = 3f
+            dataSet.iconsOffset = MPPointF(0f, 40f)
+            dataSet.selectionShift = 5f
+
+            dataSet.colors = arrayListOf(Color.parseColor("#FD907A"), Color.parseColor("#56CCBB"), Color.parseColor("#4189F5"), Color.parseColor("#E9F985"))
+
+            //dataSet.setSelectionShift(0f);
+
+            var data = PieData(dataSet)
+            data.setValueFormatter(PercentFormatter())
+            data.setValueTextSize(11f)
+            data.setValueTextColor(Color.BLACK)
+            mChart!!.data = data
+
+            // undo all highlights
+            mChart!!.highlightValues(null)
+
+            mChart!!.invalidate()
+        }
+
         private fun calculateAward(mEditText: EditText) {
-            hideKeyBoard(mEditText)
+            KeyBoardUtils.hideKeyboard(this@AnnualBonusActivity, mEditText)
             if (StringUtils.isEmpty(mEditText.text.toString())) {
                 return
             }
@@ -162,17 +258,17 @@ class AnnualBonusActivity : BaseActivity() {
             (resultView?.findViewById(R.id.ratingBar) as RatingBar).rating = level.toFloat()
             (resultView?.findViewById(R.id.ratingTitle) as TextView).text = desp
             if (bonusResult.compareTo(bonusResult.toInt()) != 0) {
-                (resultView?.findViewById(R.id.value) as TextView).setText("%.2f".format(bonusResult))
+                (resultView?.findViewById(R.id.value) as TextView).text = "%.2f".format(bonusResult)
             } else {
-                (resultView?.findViewById(R.id.value) as TextView).setText("%.0f".format(bonusResult))
+                (resultView?.findViewById(R.id.value) as TextView).text = "%.0f".format(bonusResult)
             }
-            (resultView?.findViewById(R.id.valueDesp) as TextView).text = getString(R.string.bonus_after_tax) + " " + "%.0f".format(bonusResult * 100 / amount) + "%"
-        }
+            (resultView?.findViewById(R.id.valueDesp) as TextView).text = getString(R.string.bonus_after_tax) + " " + "%.1f".format(bonusResult * 100 / amount) + "%"
 
-        private fun hideKeyBoard(mEditText: EditText) {
-            (context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)?.hideSoftInputFromWindow(mEditText.windowToken, 0)
+            initChart()
+            var resultEntry = PieEntry("%.1f".format(bonusResult * 100 / amount).toFloat(), "税后年终奖")
+            var taxEntry = PieEntry(100 - resultEntry.y, "个人所得税")
+            fillChartData(arrayListOf(resultEntry, taxEntry))
         }
-
 
         override fun getCount(): Int {
             return 2

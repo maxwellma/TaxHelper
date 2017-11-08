@@ -2,7 +2,10 @@ package com.maxwell.projectfoundation
 
 import android.app.Activity
 import android.os.Bundle
-import com.maxwell.mclib.util.ApkTool
+import android.view.View
+import android.view.Window
+import android.widget.TextView
+import com.maxwell.mclib.Apk.ApkTool
 
 /**
  * Created by maxwellma on 29/08/2017.
@@ -15,4 +18,19 @@ open class BaseActivity : Activity() {
             finish()
         }
     }
+
+    fun initActivity(contentLayout: Int, title: Int) {
+        initActivity(contentLayout, getString(title))
+    }
+
+    fun initActivity(contentLayout: Int, title: String) {
+        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE)
+        setContentView(contentLayout)
+        window.setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.title_common)
+
+        findViewById(R.id.title_back).setOnClickListener(onBackClickedListener)
+        (findViewById(R.id.title_text) as TextView).text = title
+    }
+
+    var onBackClickedListener = View.OnClickListener { this@BaseActivity.onBackPressed() }
 }

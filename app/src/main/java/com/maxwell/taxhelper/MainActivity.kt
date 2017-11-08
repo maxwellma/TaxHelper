@@ -1,10 +1,9 @@
 package com.maxwell.taxhelper
 
 import android.os.Bundle
-import android.widget.Toast
+import com.maxwell.mclib.Location.LocationHelper
 import com.maxwell.projectfoundation.BaseActivity
 import com.maxwell.projectfoundation.Router
-import com.maxwell.projectfoundation.util.ToastUtil
 import com.tendcloud.tenddata.TCAgent
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -15,6 +14,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initViews()
+        CityListProvider.getInstance()
     }
 
 
@@ -30,7 +30,8 @@ class MainActivity : BaseActivity() {
 
     private fun initViews() {
         this.annual_entry.setOnClickListener { _ -> Router.getInstance().route(this, "annualBonus") }
-        this.month_entry.setOnClickListener { _ -> ToastUtil.show(this@MainActivity, "该功能正在开发中，即将开放~", Toast.LENGTH_SHORT) }
-    }
+        this.month_entry.setOnClickListener { _ -> Router.getInstance().route(this, "salary") }
 
+        LocationHelper.startLocation(this)
+    }
 }

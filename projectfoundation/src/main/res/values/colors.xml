@@ -46,9 +46,4 @@
     <color name="dark_water_orange">#ff4355</color>
     <color name="orange_transparent_bg">@color/light_orange</color>
     <color name="bg_blue_tips">#e8f2f5</color>
-
-    <color name="app_yellow">#ff9f03</color>
-    <color name="app_dark_yellow">#88633E</color>
-    <color name="app_light_yellow">#59FF9F03</color>
-    <color name="app_extreme_light_yellow">#25FF9F03</color>
 </resources>

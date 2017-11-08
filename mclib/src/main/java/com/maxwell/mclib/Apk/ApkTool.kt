@@ -1,4 +1,4 @@
-package com.maxwell.mclib.util
+package com.maxwell.mclib.Apk
 
 import android.content.Context
 import android.content.pm.PackageManager
@@ -25,7 +25,7 @@ object ApkTool {
             var zipfile: ZipFile? = null
             try {
                 zipfile = ZipFile(sourceDir)
-                val entries = zipfile!!.entries()
+                val entries = zipfile.entries()
                 while (entries.hasMoreElements()) {
                     val entry = entries.nextElement()
                     val entryName = entry.name
@@ -38,7 +38,7 @@ object ApkTool {
             } finally {
                 if (zipfile != null) {
                     try {
-                        zipfile!!.close()
+                        zipfile.close()
                     } catch (e: Exception) {
                     }
 

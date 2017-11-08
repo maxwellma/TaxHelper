@@ -1,8 +1,12 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme.Notitle">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <item name="android:windowBackground">@drawable/ic_splash</item>
+    </style>
+
+    <style name="AppTheme.NoTitle" parent="AppBaseTheme.Notitle">
+        <item name="android:windowBackground">@drawable/ic_splash</item>
     </style>
 
     <style name="RatingStyle" parent="@android:style/Widget.RatingBar">
@@ -17,7 +21,7 @@
         <item name="android:textSize">14sp</item>
         <item name="android:background">@drawable/hold_orange_button</item>
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:minWidth">120dp</item>
+        <item name="android:minWidth">150dp</item>
         <item name="android:paddingLeft">25dp</item>
         <item name="android:paddingRight">25dp</item>
         <item name="android:paddingTop">10dp</item>

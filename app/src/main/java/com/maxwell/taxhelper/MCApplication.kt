@@ -1,7 +1,7 @@
 package com.maxwell.taxhelper
 
 import android.app.Application
-import com.maxwell.mclib.util.ApkTool
+import com.maxwell.mclib.Apk.ApkTool
 import com.maxwell.projectfoundation.Router
 import com.tendcloud.tenddata.TCAgent
 
