@@ -243,7 +243,7 @@ class AnnualBonusActivity : BaseActivity() {
                     bonusResult = amount * (1 - 0.2f) + 555
                 }
                 in 9000f..35000f -> {
-                    bonusResult = amount * (1 - 0.25f) + 10055
+                    bonusResult = amount * (1 - 0.25f) + 1005
                 }
                 in 350000f..55000f -> {
                     bonusResult = amount * (1 - 0.3f) + 2755

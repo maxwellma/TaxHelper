@@ -568,7 +568,7 @@
                         android:layout_weight="4"
                         android:gravity="right"
                         android:padding="10dp"
-                        android:textColor="@color/b1"
+                        android:textColor="@color/a1"
                         android:textSize="12sp" />
 
                     <TextView

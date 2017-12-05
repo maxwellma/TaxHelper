@@ -20,6 +20,7 @@
         android:paddingLeft="30dp">
 
         <TextView
+            android:id="@+id/about_us"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/app_light_yellow"

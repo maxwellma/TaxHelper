@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">工资助手</string>
+    <string name="app_name">工资计算器</string>
     <string name="calculator">工资计算器</string>
     <string name="annual_bonus_entry">年终奖计算</string>
     <string name="month_salary_entry">月薪计算</string>
@@ -40,6 +40,8 @@
     <string name="tax">个人所得税</string>
     <string name="salary_final">到手月薪</string>
 
+    <string name="aboutus">关于我们</string>
     <string name="location_null">无法获取您的城市信息，请选择您所在的城市</string>
     <string name="location_not_supported">暂时不支持您所在的城市，请选择其他城市~</string>
+    <string name="app_desc">工资计算器是一款时尚简便的生活工具，帮助您解决生活中经常遇到的关于工资、年终奖、房贷等等相关的一些问题，让您更加愉悦优雅的享受生活。\n是您贴心的生活小助手。\n\n\n产品及研发：Maxwell\n测试：Caroline\nUI设计：哆啦A梦</string>
 </resources>

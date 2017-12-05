@@ -2,6 +2,7 @@ package com.maxwell.taxhelper
 
 import android.content.Context
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.view.PagerAdapter
 import android.text.Editable
@@ -31,7 +32,9 @@ import com.maxwell.projectfoundation.Router
 import com.maxwell.projectfoundation.util.FontUtil
 import com.maxwell.projectfoundation.util.ToastUtil
 import com.maxwell.taxhelper.bean.SocietyInsurance
+import com.maxwell.taxhelper.busevent.BuchonggjjEvent
 import com.maxwell.taxhelper.busevent.CitySwitch
+import com.maxwell.taxhelper.widget.GjjParamSelector
 import com.tendcloud.tenddata.TCAgent
 import de.greenrobot.event.EventBus
 import de.greenrobot.event.Subscribe
@@ -46,6 +49,7 @@ class SalaryCalculateActivity : BaseActivity() {
 
     var frontView: View? = null
     var pageIndex = 0
+    var buchonggjj: Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,12 +60,13 @@ class SalaryCalculateActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        TCAgent.onPageStart(this, "annualBonus")
+        Build.VERSION_CODES.KITKAT
+        TCAgent.onPageStart(this, "monthSalary")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        TCAgent.onPageEnd(this, "annualBonus")
+        TCAgent.onPageEnd(this, "monthSalary")
         EventBus.getDefault().unregister(this)
     }
 
@@ -102,6 +107,7 @@ class SalaryCalculateActivity : BaseActivity() {
                     frontView!!.findViewById(R.id.title_back).setOnClickListener(onBackClickedListener)
                     var salaryInput = frontView?.findViewById(R.id.salaryInput) as EditText
                     var cityText = frontView?.findViewById(R.id.city) as TextView
+                    (frontView!!.findViewById(R.id.buchongzfgjj_param) as TextView).text = getString(R.string.buchongzfgjj) + "：0%"
                     if (StringUtils.isEmpty(LocationHelper.getCity(this@SalaryCalculateActivity))) {
                         ToastUtil.show(this@SalaryCalculateActivity, R.string.location_null, Toast.LENGTH_LONG)
                     } else {
@@ -134,6 +140,10 @@ class SalaryCalculateActivity : BaseActivity() {
                         }
 
                     })
+                    frontView?.findViewById(R.id.buchongzfgjj_frame)?.setOnClickListener { _ ->
+                        KeyBoardUtils.hideKeyboard(this@SalaryCalculateActivity, salaryInput)
+                        GjjParamSelector(this@SalaryCalculateActivity).show(salaryInput)
+                    }
                     frontView?.findViewById(R.id.submit)?.setOnClickListener { _ ->
                         if (!TextUtils.isEmpty(salaryInput.text.toString())) {
                             KeyBoardUtils.hideKeyboard(this@SalaryCalculateActivity, salaryInput)
@@ -257,6 +267,8 @@ class SalaryCalculateActivity : BaseActivity() {
                 }
             }
             var societyInsurance = SocietyInsurance().getParamsByCity(city)
+            societyInsurance.gr_buchongzfgjj = buchonggjj
+            societyInsurance.gs_buchongzfgjj = buchonggjj
             var societyInsuranceAmount = paySocietyInsurance(amount, societyInsurance)
             salaryResult = amount - payTax(amount, societyInsuranceAmount) - societyInsuranceAmount
             (resultView?.findViewById(R.id.ratingBar) as RatingBar).rating = level.toFloat()
@@ -364,6 +376,12 @@ class SalaryCalculateActivity : BaseActivity() {
     @Subscribe(threadMode = ThreadMode.MainThread)
     fun onCityEvent(citySwitch: CitySwitch) {
         (frontView!!.findViewById(R.id.city) as TextView).text = citySwitch.newCity.name + "市"
+    }
+
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    fun onGjjEvent(gjj: BuchonggjjEvent) {
+        (frontView!!.findViewById(R.id.buchongzfgjj_param) as TextView).text = getString(R.string.buchongzfgjj) + "：" + gjj.params.toString() + "%"
+        buchonggjj = gjj.params.toDouble() / 100
     }
 
     override fun onBackPressed() {

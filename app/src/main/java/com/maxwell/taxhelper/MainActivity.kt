@@ -29,6 +29,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initViews() {
+        this.about_us.setOnClickListener{_ -> Router.getInstance().route(this, "aboutUs")}
         this.annual_entry.setOnClickListener { _ -> Router.getInstance().route(this, "annualBonus") }
         this.month_entry.setOnClickListener { _ -> Router.getInstance().route(this, "salary") }
 
