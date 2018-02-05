@@ -2,7 +2,6 @@ package com.maxwell.taxhelper
 
 import android.content.Context
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.support.v4.view.PagerAdapter
 import android.text.Editable
@@ -29,6 +28,7 @@ import com.maxwell.mclib.Location.LocationHelper
 import com.maxwell.mclib.util.KeyBoardUtils
 import com.maxwell.projectfoundation.BaseActivity
 import com.maxwell.projectfoundation.Router
+import com.maxwell.projectfoundation.provider.ConfigProvider
 import com.maxwell.projectfoundation.util.FontUtil
 import com.maxwell.projectfoundation.util.ToastUtil
 import com.maxwell.taxhelper.bean.SocietyInsurance
@@ -60,7 +60,6 @@ class SalaryCalculateActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        Build.VERSION_CODES.KITKAT
         TCAgent.onPageStart(this, "monthSalary")
     }
 
@@ -103,7 +102,7 @@ class SalaryCalculateActivity : BaseActivity() {
         override fun instantiateItem(container: ViewGroup?, position: Int): Any {
             when (position) {
                 0 -> {
-                    frontView = LayoutInflater.from(context).inflate(R.layout.layout_salary_font_face, container, false)
+                    frontView = LayoutInflater.from(context).inflate(R.layout.layout_salary_front_face, container, false)
                     frontView!!.findViewById(R.id.title_back).setOnClickListener(onBackClickedListener)
                     var salaryInput = frontView?.findViewById(R.id.salaryInput) as EditText
                     var cityText = frontView?.findViewById(R.id.city) as TextView
@@ -116,7 +115,7 @@ class SalaryCalculateActivity : BaseActivity() {
                             ToastUtil.show(this@SalaryCalculateActivity, R.string.location_not_supported, Toast.LENGTH_LONG)
                         }
                     }
-                    cityText.setOnClickListener { _ -> Router.getInstance().route(this@SalaryCalculateActivity, "cityList") }
+                    cityText.setOnClickListener { _ -> Router.getInstance().route(this@SalaryCalculateActivity, "cityList", null) }
                     FontUtil.setNumberFont(context, salaryInput)
                     salaryInput.setOnEditorActionListener { _, actionId, _ ->
                         when (actionId) {
@@ -126,7 +125,7 @@ class SalaryCalculateActivity : BaseActivity() {
                     }
                     salaryInput.addTextChangedListener(object : TextWatcher {
                         override fun afterTextChanged(editable: Editable?) {
-                            if (editable != null && editable.toString().length > 0) {
+                            if (editable != null && editable.toString().isNotEmpty()) {
                                 salaryInput.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28f)
                             } else {
                                 salaryInput.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
@@ -302,6 +301,22 @@ class SalaryCalculateActivity : BaseActivity() {
             (resultView!!.findViewById(R.id.excludeWuxian) as TextView).text = "%.2f".format(amount - paySocietyInsurance(amount, societyInsurance))
             (resultView!!.findViewById(R.id.tax) as TextView).text = "%.2f".format(payTax(amount, societyInsuranceAmount))
             (resultView!!.findViewById(R.id.finalSalary) as TextView).text = "%.2f".format(amount - payTax(amount, societyInsuranceAmount) - societyInsuranceAmount)
+
+            if (ConfigProvider.getInstance().salaryConfig != null && !ConfigProvider.getInstance().salaryConfig?.title.isNullOrEmpty()) {
+                resultView!!.findViewById(R.id.forthPart).visibility = View.VISIBLE
+                (resultView!!.findViewById(R.id.title) as TextView).text = ConfigProvider.getInstance().salaryConfig?.title
+                if(!ConfigProvider.getInstance().salaryConfig?.actionText.isNullOrEmpty()) {
+                    resultView!!.findViewById(R.id.actionText).visibility = View.VISIBLE
+                    (resultView!!.findViewById(R.id.actionText) as TextView).text = ConfigProvider.getInstance().salaryConfig?.actionText
+                } else {
+                    (resultView!!.findViewById(R.id.title) as TextView).textSize = 14f
+                    (resultView!!.findViewById(R.id.title) as TextView).setTextColor(Color.parseColor("#8c8c8c"))
+                    resultView!!.findViewById(R.id.forthPartBg).setBackgroundColor(resources.getColor(android.R.color.white))
+                }
+                if (!ConfigProvider.getInstance().salaryConfig?.jumpUrl.isNullOrEmpty()) {
+                    resultView!!.findViewById(R.id.forthPart).setOnClickListener { _ -> Router.getInstance().route(this@SalaryCalculateActivity, ConfigProvider.getInstance().salaryConfig?.jumpUrl!!) }
+                }
+            }
         }
     }
 

@@ -10,7 +10,7 @@ import com.tendcloud.tenddata.TCAgent
  */
 class MCApplication : Application() {
 
-    val APP_ID: String = "D052B0CF68F546C9A45CF85A227952C1"
+    private val APP_ID: String = "D052B0CF68F546C9A45CF85A227952C1"
 
     override fun onCreate() {
         super.onCreate()

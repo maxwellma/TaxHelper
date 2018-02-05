@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_yellow"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <ImageView
+        android:id="@+id/title_back"
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        android:contentDescription="@null"
+        android:paddingBottom="13dp"
+        android:paddingTop="13dp"
+        android:src="@drawable/ic_back_white" />
+
+    <ImageView
+        android:id="@+id/title"
+        android:layout_width="250dp"
+        android:layout_height="83dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/ic_salarylogo" />
+
+    <LinearLayout
+        android:id="@+id/inputFrame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/stroke_dark_yellow"
+        android:orientation="vertical"
+        android:paddingBottom="30dp">
+
+        <EditText
+            android:id="@+id/salaryInput"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/app_light_yellow"
+            android:digits="0123456789"
+            android:gravity="center"
+            android:hint="@string/month_salary"
+            android:imeActionLabel="计算"
+            android:imeOptions="actionDone"
+            android:inputType="numberSigned"
+            android:maxLength="7"
+            android:textColor="@color/app_dark_yellow"
+            android:textColorHint="@color/app_dark_yellow"
+            android:textCursorDrawable="@drawable/edittext_cursor"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:id="@+id/buchongzfgjj_frame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/buchongzfgjj_param"
+                android:textColor="@color/app_dark_yellow"
+                android:text="@string/buchongzfgjj"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"/>
+
+            <View
+                android:id="@+id/check"
+                android:layout_width="8dp"
+                android:textColor="@color/b1"
+                android:textSize="12sp"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="center_vertical"
+                android:layout_height="13dp"
+                android:background="@drawable/ic_select"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/submit"
+            style="@style/BottomButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/salaryInput"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="70dp"
+            android:text="@string/calculate"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</RelativeLayout>

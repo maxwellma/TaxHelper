@@ -25,6 +25,8 @@ import com.github.mikephil.charting.utils.MPPointF
 import com.maxwell.jazzyviewpager.JazzyViewPager
 import com.maxwell.mclib.util.KeyBoardUtils
 import com.maxwell.projectfoundation.BaseActivity
+import com.maxwell.projectfoundation.Router
+import com.maxwell.projectfoundation.provider.ConfigProvider
 import com.maxwell.projectfoundation.util.FontUtil
 import com.tendcloud.tenddata.TCAgent
 import kotlinx.android.synthetic.main.activity_annual_bonus.*
@@ -88,7 +90,7 @@ class AnnualBonusActivity : BaseActivity() {
         override fun instantiateItem(container: ViewGroup?, position: Int): Any {
             when (position) {
                 0 -> {
-                    var view = LayoutInflater.from(context).inflate(R.layout.layout_font_face, container, false)
+                    var view = LayoutInflater.from(context).inflate(R.layout.layout_annual_front_face, container, false)
                     view!!.findViewById(R.id.title_back).setOnClickListener(onBackClickedListener)
                     var salaryInput = view.findViewById(R.id.salaryInput) as EditText
                     FontUtil.setNumberFont(context, salaryInput)
@@ -268,6 +270,21 @@ class AnnualBonusActivity : BaseActivity() {
             var resultEntry = PieEntry("%.1f".format(bonusResult * 100 / amount).toFloat(), "税后年终奖")
             var taxEntry = PieEntry(100 - resultEntry.y, "个人所得税")
             fillChartData(arrayListOf(resultEntry, taxEntry))
+            if (ConfigProvider.getInstance().bonusConfig != null && !ConfigProvider.getInstance().bonusConfig?.title.isNullOrEmpty()) {
+                resultView!!.findViewById(R.id.forthPart).visibility = View.VISIBLE
+                (resultView!!.findViewById(R.id.title) as TextView).text = ConfigProvider.getInstance().bonusConfig?.title
+                if(!ConfigProvider.getInstance().salaryConfig?.actionText.isNullOrEmpty()) {
+                    resultView!!.findViewById(R.id.actionText).visibility = View.VISIBLE
+                    (resultView!!.findViewById(R.id.actionText) as TextView).text = ConfigProvider.getInstance().bonusConfig?.actionText
+                } else {
+                    (resultView!!.findViewById(R.id.title) as TextView).textSize = 14f
+                    (resultView!!.findViewById(R.id.title) as TextView).setTextColor(Color.parseColor("#8c8c8c"))
+                    resultView!!.findViewById(R.id.forthPartBg).setBackgroundColor(resources.getColor(android.R.color.white))
+                }
+                if (!ConfigProvider.getInstance().bonusConfig?.jumpUrl.isNullOrEmpty()) {
+                    resultView!!.findViewById(R.id.forthPart).setOnClickListener { _ -> Router.getInstance().route(this@AnnualBonusActivity, ConfigProvider.getInstance().bonusConfig?.jumpUrl!!) }
+                }
+            }
         }
 
         override fun getCount(): Int {

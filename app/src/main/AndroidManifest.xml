@@ -23,16 +23,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.maxwell.taxhelper.MainActivity"
+            android:name=".SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoTitle">
+            android:theme="@style/AppTheme.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <meta-data
                 android:name="moduleName"
-                android:value="shell" />
+                android:value="splash" />
+        </activity>
+        <activity
+            android:name="com.maxwell.taxhelper.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoTitle">
+            <meta-data
+                android:name="moduleName"
+                android:value="main" />
         </activity>
         <activity
             android:name=".AnnualBonusActivity"
@@ -53,6 +61,15 @@
                 android:value="salary" />
         </activity>
         <activity
+            android:name=".HouseCalculateActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoTitle"
+            android:windowSoftInputMode="adjustNothing">
+            <meta-data
+                android:name="moduleName"
+                android:value="house" />
+        </activity>
+        <activity
             android:name=".CityListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
@@ -68,11 +85,24 @@
                 android:name="moduleName"
                 android:value="aboutUs" />
         </activity>
+        <activity
+            android:name=".LatteDownloadActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppBaseTheme">
+            <meta-data
+                android:name="moduleName"
+                android:value="latteDownload" />
+        </activity>
 
         <service android:name="com.amap.api.location.APSService"></service>
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="87707618dfd3f5bcd9cb9371330e1055" />
+        <receiver android:name=".DownloadCompleteReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

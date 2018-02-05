@@ -6,6 +6,7 @@ import android.view.View
 import android.view.Window
 import android.widget.TextView
 import com.maxwell.mclib.Apk.ApkTool
+import com.maxwell.projectfoundation.provider.ActivityStackProvider
 
 /**
  * Created by maxwellma on 29/08/2017.
@@ -17,6 +18,7 @@ open class BaseActivity : Activity() {
         if (!ApkTool.getApkSignature(this).equals("2CD78672996A27557FA149ED4ADD0C8C", true)) {
             finish()
         }
+        ActivityStackProvider.getInstance().put(this@BaseActivity)
     }
 
     fun initActivity(contentLayout: Int, title: Int) {
@@ -30,6 +32,11 @@ open class BaseActivity : Activity() {
 
         findViewById(R.id.title_back).setOnClickListener(onBackClickedListener)
         (findViewById(R.id.title_text) as TextView).text = title
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        ActivityStackProvider.getInstance().remove(this@BaseActivity)
     }
 
     var onBackClickedListener = View.OnClickListener { this@BaseActivity.onBackPressed() }

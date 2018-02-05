@@ -3,6 +3,7 @@
     <string name="calculator">工资计算器</string>
     <string name="annual_bonus_entry">年终奖计算</string>
     <string name="month_salary_entry">月薪计算</string>
+    <string name="house_entry">房贷计算</string>
     <string name="yearly_bonus">年终奖金额</string>
     <string name="month_salary">请输入金额</string>
     <string name="yearly_bonus_tax">年终奖个人所得税计算器</string>
@@ -16,7 +17,7 @@
 
     <string name="tax_detail">五险一金及个税明细</string>
     <string name="tax_distribution__detail">工资税后分布</string>
-    
+    <string name="debit_detail">房贷计算结果</string>
 
     <string name="title_little">温饱</string>
     <string name="title_average">小康</string>
@@ -27,6 +28,9 @@
     <string name="tax_item">汇缴项目</string>
     <string name="personal_part">个人缴纳部分</string>
     <string name="company_part">公司缴纳部分</string>
+    <string name="debit_item"></string>
+    <string name="equivalent_amount">等额本息方案</string>
+    <string name="equivalent_capital">等额本金方案</string>
 
     <string name="yanglao">养老保险</string>
     <string name="yiliao">医疗保险</string>
@@ -40,8 +44,17 @@
     <string name="tax">个人所得税</string>
     <string name="salary_final">到手月薪</string>
 
+    <string name="debit_total">贷款总额</string>
+    <string name="debit_month">还款月数</string>
+    <string name="repay_per_month">每月还款</string>
+    <string name="total_interest">利息总计</string>
+    <string name="total_amount">还款总额</string>
+
+    <string name="download">下载注册领取50元投资红包</string>
+    <string name="slogan">简便时尚工资助手</string>
+
     <string name="aboutus">关于我们</string>
     <string name="location_null">无法获取您的城市信息，请选择您所在的城市</string>
     <string name="location_not_supported">暂时不支持您所在的城市，请选择其他城市~</string>
-    <string name="app_desc">工资计算器是一款时尚简便的生活工具，帮助您解决生活中经常遇到的关于工资、年终奖、房贷等等相关的一些问题，让您更加愉悦优雅的享受生活。\n是您贴心的生活小助手。\n\n\n产品及研发：Maxwell\n测试：Caroline\nUI设计：哆啦A梦</string>
+    <string name="app_desc">工资计算器是一款时尚简便的生活工具，帮助您解决生活中经常遇到的关于工资、年终奖、房贷等等相关的一些问题，让您的生活变得更加简单。\n\n另外，我们会定期与您分享我们觉得美好的故事，图片和语句。\n每天都有一些小美好不期而遇。\n\n\n产品及研发：Maxwell\n测试：Caroline\nUI设计：哆啦A梦</string>
 </resources>

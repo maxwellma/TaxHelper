@@ -53,17 +53,28 @@ class Router {
         }
     }
 
-    fun route(context: Context, moduleName: String) {
-        route(context, moduleName, null, null, null)
+    fun route(context: Context, url: String?) {
+        route(context, url, null, null, null)
     }
 
     fun route(context: Context, moduleName: String, params: Map<String, String>?) {
-        route(context, moduleName, params, null, null)
+        var uri = Uri.parse("mcTax://" + moduleName)
+        if (params != null && !params.isEmpty()) {
+            var builder = uri.buildUpon()
+            for((key, value) in params) {
+                builder.appendQueryParameter(key, value)
+            }
+            uri = builder.build()
+        }
+        route(context, uri.toString(), params, null, null)
     }
 
-    fun route(context: Context, moduleName: String, params: Map<String, String>?, bundle: Bundle?, flags: List<Int>?) {
-        var target = RouterMapper.getInstance().getModuleInfo(moduleName)
-        var uri : Uri = Uri.parse("mcTax://" + moduleName)
+    private fun route(context: Context, url: String?, params: Map<String, String>?, bundle: Bundle?, flags: List<Int>?) {
+        if(url.isNullOrEmpty()) {
+            return
+        }
+        var uri : Uri = Uri.parse( url)
+        var target = RouterMapper.getInstance().getModuleInfo(uri.host)
         if (params != null && !params.isEmpty()) {
             var builder = uri.buildUpon()
             for((key, value) in params) {

@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:contentDescription="@null"
+            android:paddingBottom="13dp"
+            android:paddingTop="13dp"
+            android:src="@drawable/ic_back" />
+
+        <LinearLayout
+            android:id="@+id/thirdPart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/secondPart"
+            android:orientation="vertical"
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:padding="15dp"
+                android:layout_marginTop="30dp"
+                android:text="@string/debit_detail"
+                android:textColor="@color/b1"
+                android:textSize="20sp" />
+
+            <TableLayout
+                android:id="@+id/marketTable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/stroke_table_yellow">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:padding="10dp"
+                        android:text="@string/debit_item"
+                        android:textColor="@color/b1"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="right"
+                        android:padding="10dp"
+                        android:text="@string/equivalent_amount"
+                        android:textColor="@color/b1"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="right"
+                        android:padding="10dp"
+                        android:text="@string/equivalent_capital"
+                        android:textColor="@color/b1"
+                        android:textSize="12sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="3"
+                        android:background="@color/app_extreme_light_yellow" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="8"
+                        android:background="@color/app_extreme_light_yellow" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/debit_amount_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:background="@color/app_extreme_light_yellow"
+                        android:padding="10dp"
+                        android:text="@string/debit_total"
+                        android:textColor="@color/b1"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/debit_amount_bx"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="right"
+                        android:padding="10dp"
+                        android:textColor="@color/b1"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/debit_amount_bj"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="right"
+                        android:padding="10dp"
+                        android:textColor="@color/b1"
+                        android:textSize="12sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="3"
+                        android:background="@android:color/white" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="8"
+                        android:background="@color/app_extreme_light_yellow" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/month_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:background="@color/app_extreme_light_yellow"
+                        android:padding="10dp"
+                        android:text="@string/debit_month"
+                        android:textColor="@color/b1"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/month_bx"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="right"
+                        android:padding="10dp"
+                        android:textColor="@color/b1"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/month_bj"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="right"
+                        android:padding="10dp"
+                        android:textColor="@color/b1"
+                        android:textSize="12sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="3"
+                        android:background="@android:color/white" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="8"
+                        android:background="@color/app_extreme_light_yellow" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/debit_per_month_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:background="@color/app_extreme_light_yellow"
+                        android:padding="10dp"
+                        android:text="@string/repay_per_month"
+                        android:textColor="@color/b1"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/debit_per_month_bx"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="right"
+                        android:padding="10dp"
+                        android:textColor="@color/b1"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/debit_per_month_bj"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="right"
+                        android:padding="10dp"
+                        android:textColor="@color/b1"
+                        android:textSize="12sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="3"
+                        android:background="@android:color/white" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="8"
+                        android:background="@color/app_extreme_light_yellow" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/total_interest_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:background="@color/app_extreme_light_yellow"
+                        android:padding="10dp"
+                        android:text="@string/total_interest"
+                        android:textColor="@color/b1"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/total_interest_bx"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="right"
+                        android:padding="10dp"
+                        android:textColor="@color/b1"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/total_interest_bj"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="right"
+                        android:padding="10dp"
+                        android:textColor="@color/b1"
+                        android:textSize="12sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="3"
+                        android:background="@android:color/white" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="8"
+                        android:background="@color/app_extreme_light_yellow" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/total_amount_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:background="@color/app_extreme_light_yellow"
+                        android:padding="10dp"
+                        android:text="@string/total_amount"
+                        android:textColor="@color/b1"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/total_amount_bx"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="right"
+                        android:padding="10dp"
+                        android:textColor="@color/b1"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/total_amount_bj"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="right"
+                        android:padding="10dp"
+                        android:textColor="@color/b1"
+                        android:textSize="12sp" />
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+</ScrollView>

@@ -4,13 +4,13 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion '25.0.1'
+    buildToolsVersion '27.0.1'
     defaultConfig {
         applicationId "com.maxwell.taxhelper"
         minSdkVersion 14
         targetSdkVersion 20
-        versionCode 3
-        versionName "2.0"
+        versionCode 9
+        versionName "3.2"
     }
     buildTypes {
         release {

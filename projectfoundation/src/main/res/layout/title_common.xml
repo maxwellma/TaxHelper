@@ -27,6 +27,15 @@
         android:textColor="@color/b1"
         android:textSize="18sp" />
 
+    <ImageView
+        android:id="@+id/action"
+        android:layout_width="45dp"
+        android:layout_height="25dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:paddingRight="15dp"
+        android:visibility="gone"
+        android:src="@drawable/ic_share" />
     <View
         android:id="@+id/title_line"
         android:layout_width="match_parent"

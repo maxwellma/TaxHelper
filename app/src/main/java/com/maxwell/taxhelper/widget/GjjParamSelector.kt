@@ -16,7 +16,7 @@ import de.greenrobot.event.EventBus
  */
 class GjjParamSelector(context: Context) {
 
-    var mPopupWindow: PopupWindow? = null
+    private var mPopupWindow: PopupWindow? = null
     var contentView: View? = null
 
     init {
@@ -48,7 +48,7 @@ class GjjParamSelector(context: Context) {
 
     fun show(view: View) {
         mPopupWindow!!.showAtLocation(view, Gravity.BOTTOM, 0, 0)
-        contentView!!.postDelayed({ -> contentView!!.setBackgroundResource(R.color.app_alpha_black_dark) }, 300)
+        contentView!!.postDelayed({  contentView!!.setBackgroundResource(R.color.app_alpha_black_dark) }, 300)
     }
 
     fun dismiss() {
