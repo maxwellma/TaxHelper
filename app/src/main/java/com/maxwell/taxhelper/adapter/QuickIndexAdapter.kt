@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.maxwell.projectfoundation.BaseActivity
 import com.maxwell.taxhelper.R
-import com.maxwell.taxhelper.bean.City
+import com.maxwell.taxhelper.bean.CityParams
 import com.maxwell.taxhelper.busevent.CitySwitch
 import de.greenrobot.event.EventBus
 import org.apache.commons.lang3.StringUtils
@@ -16,14 +16,14 @@ import org.apache.commons.lang3.StringUtils
 /**
  * Created by maxwellma on 04/11/2017.
  */
-class QuickIndexAdapter(context: Context, cityList: List<City>) : RecyclerView.Adapter<QuickIndexAdapter.CityHolder>() {
+class QuickIndexAdapter(context: Context, cityList: ArrayList<CityParams>) : RecyclerView.Adapter<QuickIndexAdapter.CityHolder>() {
 
-    val cityList = cityList
-    var context = context
+    private val cityList = cityList
+    private var context = context
 
     override fun onBindViewHolder(viewHolder: CityHolder, position: Int) {
         viewHolder.nameText.text = cityList[position].name
-        viewHolder.indexText.text = cityList[position].pinyin[0].toString()
+        viewHolder.indexText.text = cityList[position].pinyin[0].toString().toUpperCase()
         if (position > 0) {
             if (StringUtils.equalsIgnoreCase(cityList[position - 1].pinyin[0].toString(), cityList[position].pinyin[0].toString())) {
                 viewHolder.indexText.visibility = View.GONE

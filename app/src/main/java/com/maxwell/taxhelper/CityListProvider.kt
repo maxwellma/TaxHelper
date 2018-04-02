@@ -1,5 +1,6 @@
 package com.maxwell.taxhelper
 
+import android.content.Context
 import com.maxwell.mclib.util.PinyinUtil
 import com.maxwell.taxhelper.bean.City
 import org.apache.commons.lang3.StringUtils
@@ -13,7 +14,7 @@ class CityListProvider {
     companion object {
         private var cityListProvider: CityListProvider? = null
 
-        fun getInstance(): CityListProvider {
+        fun getInstance(context: Context): CityListProvider {
             synchronized(CityListProvider::class.java) {
                 if (cityListProvider == null) {
                     cityListProvider = CityListProvider()
@@ -27,9 +28,6 @@ class CityListProvider {
             , "沈阳", "长春", "哈尔滨", "西安", "银川", "兰州", "西宁", "乌鲁木齐", "重庆", "成都", "昆明", "贵阳")
 
     var cityList: List<City> = generateCityList()
-        get() {
-            return field
-        }
         private set(value) {
             field = value
         }
@@ -37,14 +35,11 @@ class CityListProvider {
     private fun generateCityList(): List<City> {
         var cityList = ArrayList<City>()
         cityStrList.forEach { city ->
-            if (StringUtils.equalsIgnoreCase("重庆", city)) {
-                cityList.add(City(city, "CHONGQING"))
-            } else if (StringUtils.equalsIgnoreCase("长沙", city)) {
-                cityList.add(City(city, "CHANGSHA"))
-            } else if (StringUtils.equalsIgnoreCase("长春", city)) {
-                cityList.add(City(city, "CHANGCHUN"))
-            } else {
-                cityList.add(City(city, PinyinUtil.getPinyin(city)))
+            when {
+                StringUtils.equalsIgnoreCase("重庆", city) -> cityList.add(City(city, "CHONGQING"))
+                StringUtils.equalsIgnoreCase("长沙", city) -> cityList.add(City(city, "CHANGSHA"))
+                StringUtils.equalsIgnoreCase("长春", city) -> cityList.add(City(city, "CHANGCHUN"))
+                else -> cityList.add(City(city, PinyinUtil.getPinyin(city)))
             }
         }
         return cityList

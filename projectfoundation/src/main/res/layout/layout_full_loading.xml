@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/full_load_indicator"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="180dp"
+    android:background="@color/b4">
+
+    <TextView
+        android:id="@+id/load_fail_tip_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/error_message"
+        android:textColor="@color/b2"
+        android:textSize="14sp" />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/loading_image"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/loading" />
+</RelativeLayout>

@@ -17,8 +17,8 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        CityParamsProvider.getInstance(this).loadCityMaps()
         initViews()
-        CityListProvider.getInstance()
         ConfigProvider.getInstance().initSalaryConf()
         ConfigProvider.getInstance().initBonusConf()
         ConfigProvider.getInstance().initShareConf()

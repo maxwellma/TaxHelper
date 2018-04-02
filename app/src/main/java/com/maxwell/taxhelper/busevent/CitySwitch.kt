@@ -1,11 +1,12 @@
 package com.maxwell.taxhelper.busevent
 
-import com.maxwell.taxhelper.bean.City
+import com.maxwell.taxhelper.bean.CityParams
 
 /**
  * Created by maxwellma on 05/11/2017.
  */
-class CitySwitch(city: City) {
+class CitySwitch(cityParams: CityParams) {
 
-    var newCity = city
+    var newCity = cityParams
+        private set(value) {}
 }

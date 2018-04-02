@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.view.PagerAdapter
 import android.text.Editable
-import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -81,7 +80,7 @@ class HouseCalculateActivity : BaseActivity() {
                     if (StringUtils.isEmpty(LocationHelper.getCity(this@HouseCalculateActivity))) {
                         ToastUtil.show(this@HouseCalculateActivity, R.string.location_null, Toast.LENGTH_LONG)
                     } else {
-                        if (!CityListProvider.getInstance().isCitySupported(LocationHelper.getCity(this@HouseCalculateActivity))) {
+                        if (!CityListProvider.getInstance(this@HouseCalculateActivity).isCitySupported(LocationHelper.getCity(this@HouseCalculateActivity))) {
                             ToastUtil.show(this@HouseCalculateActivity, R.string.location_not_supported, Toast.LENGTH_LONG)
                         }
                     }
@@ -113,7 +112,7 @@ class HouseCalculateActivity : BaseActivity() {
                         GjjParamSelector(this@HouseCalculateActivity).show(debitInput)
                     }
                     frontView?.findViewById(R.id.submit)?.setOnClickListener { _ ->
-                        if (!TextUtils.isEmpty(debitInput.text.toString())) {
+                        if (debitInput.text.toString().isNotEmpty()) {
                             KeyBoardUtils.hideKeyboard(this@HouseCalculateActivity, debitInput)
                             debitInput.clearFocus()
                             calculateDebit(debitInput, 0.0325, 240)

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ProjectFoundation</string>
+    <string name="error_message">网络不给力，请稍后再试</string>
 </resources>

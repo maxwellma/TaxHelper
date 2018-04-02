@@ -31,7 +31,7 @@ import com.maxwell.projectfoundation.Router
 import com.maxwell.projectfoundation.provider.ConfigProvider
 import com.maxwell.projectfoundation.util.FontUtil
 import com.maxwell.projectfoundation.util.ToastUtil
-import com.maxwell.taxhelper.bean.SocietyInsurance
+import com.maxwell.taxhelper.bean.CityParams
 import com.maxwell.taxhelper.busevent.BuchonggjjEvent
 import com.maxwell.taxhelper.busevent.CitySwitch
 import com.maxwell.taxhelper.widget.GjjParamSelector
@@ -49,7 +49,7 @@ class SalaryCalculateActivity : BaseActivity() {
 
     var frontView: View? = null
     var pageIndex = 0
-    var buchonggjj: Double = 0.0
+    var cityParams: CityParams? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -111,7 +111,8 @@ class SalaryCalculateActivity : BaseActivity() {
                         ToastUtil.show(this@SalaryCalculateActivity, R.string.location_null, Toast.LENGTH_LONG)
                     } else {
                         cityText.text = LocationHelper.getCity(this@SalaryCalculateActivity)
-                        if (!CityListProvider.getInstance().isCitySupported(LocationHelper.getCity(this@SalaryCalculateActivity))) {
+                        cityParams = CityParamsProvider.getInstance(this@SalaryCalculateActivity).getCityParams(cityText.text.toString())
+                        if (cityParams == null) {
                             ToastUtil.show(this@SalaryCalculateActivity, R.string.location_not_supported, Toast.LENGTH_LONG)
                         }
                     }
@@ -146,13 +147,13 @@ class SalaryCalculateActivity : BaseActivity() {
                     frontView?.findViewById(R.id.submit)?.setOnClickListener { _ ->
                         if (!TextUtils.isEmpty(salaryInput.text.toString())) {
                             KeyBoardUtils.hideKeyboard(this@SalaryCalculateActivity, salaryInput)
-                            if (!CityListProvider.getInstance().isCitySupported(cityText.text.toString())) {
+                            if (cityParams == null) {
                                 ToastUtil.show(this@SalaryCalculateActivity, R.string.location_not_supported, Toast.LENGTH_LONG)
                             } else {
                                 calculateSalary(salaryInput, cityText.text.toString())
                                 initChart(salaryInput.text.toString().toDouble(), cityText.text.toString())
                                 salaryInput.clearFocus()
-                                jazzyPager.postDelayed({ ->
+                                jazzyPager.postDelayed({
                                     jazzyPager.setCurrentItem(1, true)
                                     pageIndex = 1
                                     salaryInput.setText("")
@@ -206,7 +207,7 @@ class SalaryCalculateActivity : BaseActivity() {
             mChart!!.setEntryLabelTextSize(12f)
             mChart!!.setDrawEntryLabels(false)
 
-            var societyInsuranceAmount = paySocietyInsurance(amount, SocietyInsurance().getParamsByCity(city))
+            var societyInsuranceAmount = paySocietyInsurance(amount, cityParams!!)
             var taxAmount = payTax(amount, societyInsuranceAmount)
             var insuranceEntry = PieEntry("%.1f".format(societyInsuranceAmount * 100 / amount).toFloat(), "五险一金")
             var salaryEntry = PieEntry("%.1f".format((amount - taxAmount - societyInsuranceAmount) * 100 / amount).toFloat(), "到手薪资")
@@ -265,10 +266,7 @@ class SalaryCalculateActivity : BaseActivity() {
                     rankTitle = getString(R.string.title_rich)
                 }
             }
-            var societyInsurance = SocietyInsurance().getParamsByCity(city)
-            societyInsurance.gr_buchongzfgjj = buchonggjj
-            societyInsurance.gs_buchongzfgjj = buchonggjj
-            var societyInsuranceAmount = paySocietyInsurance(amount, societyInsurance)
+            var societyInsuranceAmount = paySocietyInsurance(amount, cityParams!!)
             salaryResult = amount - payTax(amount, societyInsuranceAmount) - societyInsuranceAmount
             (resultView?.findViewById(R.id.ratingBar) as RatingBar).rating = level.toFloat()
             (resultView?.findViewById(R.id.ratingTitle) as TextView).text = rankTitle
@@ -281,24 +279,24 @@ class SalaryCalculateActivity : BaseActivity() {
             }
             (resultView?.findViewById(R.id.valueDesp) as TextView).text = getString(R.string.bonus_after_tax) + " " + "%.1f".format(resultText.text.toString().toDouble() * 100 / amount) + "%"
 
-            (resultView!!.findViewById(R.id.yanglao_gr) as TextView).text = getTaxDisplayStr(societyInsurance, amount, societyInsurance.gr_yanglao, 0)
-            (resultView!!.findViewById(R.id.yanglao_gs) as TextView).text = getTaxDisplayStr(societyInsurance, amount, societyInsurance.gs_yanglao, 0)
-            (resultView!!.findViewById(R.id.yiliao_gr) as TextView).text = getTaxDisplayStr(societyInsurance, amount, societyInsurance.gr_yiliao, 0)
-            (resultView!!.findViewById(R.id.yiliao_gs) as TextView).text = getTaxDisplayStr(societyInsurance, amount, societyInsurance.gs_yiliao, 0)
-            (resultView!!.findViewById(R.id.shiye_gr) as TextView).text = getTaxDisplayStr(societyInsurance, amount, societyInsurance.gr_shiye, 0)
-            (resultView!!.findViewById(R.id.shiye_gs) as TextView).text = getTaxDisplayStr(societyInsurance, amount, societyInsurance.gs_shiye, 0)
-            (resultView!!.findViewById(R.id.jichuzfgjj_gr) as TextView).text = getTaxDisplayStr(societyInsurance, amount, societyInsurance.gr_jichuzfgjj, 1)
-            (resultView!!.findViewById(R.id.jichuzfgjj_gs) as TextView).text = getTaxDisplayStr(societyInsurance, amount, societyInsurance.gs_jichuzfgjj, 1)
-            (resultView!!.findViewById(R.id.buchongzfgjj_gr) as TextView).text = getTaxDisplayStr(societyInsurance, amount, societyInsurance.gr_buchongzfgjj, 1)
-            (resultView!!.findViewById(R.id.buchongzfgjj_gs) as TextView).text = getTaxDisplayStr(societyInsurance, amount, societyInsurance.gs_buchongzfgjj, 1)
-            (resultView!!.findViewById(R.id.gongshang_gr) as TextView).text = getTaxDisplayStr(societyInsurance, amount, societyInsurance.gr_gongshang, 0)
-            (resultView!!.findViewById(R.id.gongshang_gs) as TextView).text = getTaxDisplayStr(societyInsurance, amount, societyInsurance.gs_gongshang, 0)
-            (resultView!!.findViewById(R.id.shengyu_gr) as TextView).text = getTaxDisplayStr(societyInsurance, amount, societyInsurance.gr_shengyu, 0)
-            (resultView!!.findViewById(R.id.shengyu_gs) as TextView).text = getTaxDisplayStr(societyInsurance, amount, societyInsurance.gs_shengyu, 0)
-            (resultView!!.findViewById(R.id.wuxian_gr) as TextView).text = "%.2f".format(paySocietyInsurance(amount, societyInsurance))
-            (resultView!!.findViewById(R.id.wuxian_gs) as TextView).text = "%.2f".format(payCompanySocietyInsurance(amount, societyInsurance))
+            (resultView!!.findViewById(R.id.yanglao_gr) as TextView).text = getTaxDisplayStr(cityParams!!, amount, cityParams!!.insurance.p_pension, 0)
+            (resultView!!.findViewById(R.id.yanglao_gs) as TextView).text = getTaxDisplayStr(cityParams!!, amount, cityParams!!.insurance.c_pension, 0)
+            (resultView!!.findViewById(R.id.yiliao_gr) as TextView).text = getTaxDisplayStr(cityParams!!, amount, cityParams!!.insurance.p_medical, 0)
+            (resultView!!.findViewById(R.id.yiliao_gs) as TextView).text = getTaxDisplayStr(cityParams!!, amount, cityParams!!.insurance.c_medical, 0)
+            (resultView!!.findViewById(R.id.shiye_gr) as TextView).text = getTaxDisplayStr(cityParams!!, amount, cityParams!!.insurance.p_unemployed, 0)
+            (resultView!!.findViewById(R.id.shiye_gs) as TextView).text = getTaxDisplayStr(cityParams!!, amount, cityParams!!.insurance.c_unemployed, 0)
+            (resultView!!.findViewById(R.id.jichuzfgjj_gr) as TextView).text = getTaxDisplayStr(cityParams!!, amount, cityParams!!.insurance.p_housing, 1)
+            (resultView!!.findViewById(R.id.jichuzfgjj_gs) as TextView).text = getTaxDisplayStr(cityParams!!, amount, cityParams!!.insurance.c_housing, 1)
+            (resultView!!.findViewById(R.id.buchongzfgjj_gr) as TextView).text = getTaxDisplayStr(cityParams!!, amount, cityParams!!.insurance.p_housing_extra, 1)
+            (resultView!!.findViewById(R.id.buchongzfgjj_gs) as TextView).text = getTaxDisplayStr(cityParams!!, amount, cityParams!!.insurance.c_housing_extra, 1)
+            (resultView!!.findViewById(R.id.gongshang_gr) as TextView).text = getTaxDisplayStr(cityParams!!, amount, 0.0, 0)
+            (resultView!!.findViewById(R.id.gongshang_gs) as TextView).text = getTaxDisplayStr(cityParams!!, amount, cityParams!!.insurance.c_injury, 0)
+            (resultView!!.findViewById(R.id.shengyu_gr) as TextView).text = getTaxDisplayStr(cityParams!!, amount, 0.0, 0)
+            (resultView!!.findViewById(R.id.shengyu_gs) as TextView).text = getTaxDisplayStr(cityParams!!, amount, cityParams!!.insurance.c_maternity, 0)
+            (resultView!!.findViewById(R.id.wuxian_gr) as TextView).text = "%.2f".format(paySocietyInsurance(amount, cityParams!!))
+            (resultView!!.findViewById(R.id.wuxian_gs) as TextView).text = "%.2f".format(payCompanySocietyInsurance(amount, cityParams!!))
 
-            (resultView!!.findViewById(R.id.excludeWuxian) as TextView).text = "%.2f".format(amount - paySocietyInsurance(amount, societyInsurance))
+            (resultView!!.findViewById(R.id.excludeWuxian) as TextView).text = "%.2f".format(amount - paySocietyInsurance(amount, cityParams!!))
             (resultView!!.findViewById(R.id.tax) as TextView).text = "%.2f".format(payTax(amount, societyInsuranceAmount))
             (resultView!!.findViewById(R.id.finalSalary) as TextView).text = "%.2f".format(amount - payTax(amount, societyInsuranceAmount) - societyInsuranceAmount)
 
@@ -320,21 +318,21 @@ class SalaryCalculateActivity : BaseActivity() {
         }
     }
 
-    private fun getTaxDisplayStr(societyInsurance: SocietyInsurance, amount: Double, factor: Double, type: Int): String {
-        var result: Double = 0.0
+    private fun getTaxDisplayStr(cityParams: CityParams, amount: Double, factor: Double, type: Int): String {
+        var result = 0.0
         when (type) {
             0 -> {
                 when (amount) {
-                    in 0.0..societyInsurance.min_shebao -> result += societyInsurance.min_shebao * factor
-                    in societyInsurance.min_shebao..societyInsurance.max_shebao -> result += amount * factor
-                    else -> result += societyInsurance.max_shebao * factor
+                    in 0.0..cityParams.insurance.minSocial -> result += cityParams.insurance.minSocial * factor
+                    in cityParams.insurance.minSocial..cityParams.insurance.maxSocial -> result += amount * factor
+                    else -> result += cityParams.insurance.maxSocial * factor
                 }
             }
             1 -> {
                 when (amount) {
-                    in 0.0..societyInsurance.min_gjj -> result += societyInsurance.min_gjj * factor
-                    in societyInsurance.min_gjj..societyInsurance.max_gjj -> result += amount * factor
-                    else -> result += societyInsurance.max_gjj * factor
+                    in 0.0..cityParams.insurance.minFunds -> result += cityParams.insurance.minFunds * factor
+                    in cityParams.insurance.minFunds..cityParams.insurance.maxFunds -> result += amount * factor
+                    else -> result += cityParams.insurance.maxFunds * factor
                 }
             }
         }
@@ -342,32 +340,32 @@ class SalaryCalculateActivity : BaseActivity() {
     }
 
 
-    private fun paySocietyInsurance(amount: Double, societyInsurance: SocietyInsurance): Double {
-        var result: Double = 0.0
+    private fun paySocietyInsurance(amount: Double, cityParams: CityParams): Double {
+        var result = 0.0
         when (amount) {
-            in 0.0..societyInsurance.min_gjj -> result += societyInsurance.min_gjj * (societyInsurance.gr_jichuzfgjj + societyInsurance.gr_buchongzfgjj)
-            in societyInsurance.min_gjj..societyInsurance.max_gjj -> result += amount * (societyInsurance.gr_jichuzfgjj + societyInsurance.gr_buchongzfgjj)
-            else -> result += societyInsurance.max_gjj * (societyInsurance.gr_buchongzfgjj + societyInsurance.gr_jichuzfgjj)
+            in 0.0..cityParams.insurance.minFunds -> result += cityParams.insurance.minFunds * (cityParams.insurance.p_housing + cityParams.insurance.p_housing_extra)
+            in cityParams.insurance.minFunds..cityParams.insurance.maxFunds -> result += amount * (cityParams.insurance.p_housing + cityParams.insurance.p_housing_extra)
+            else -> result += cityParams.insurance.maxFunds * (cityParams.insurance.p_housing + cityParams.insurance.p_housing_extra)
         }
         when (amount) {
-            in 0.0..societyInsurance.min_shebao -> result += societyInsurance.min_shebao * (societyInsurance.gr_yanglao + societyInsurance.gr_yiliao + societyInsurance.gr_shiye + societyInsurance.gr_shengyu + societyInsurance.gr_gongshang)
-            in societyInsurance.min_shebao..societyInsurance.max_shebao -> result += amount * (societyInsurance.gr_yanglao + societyInsurance.gr_yiliao + societyInsurance.gr_shiye + societyInsurance.gr_shengyu + societyInsurance.gr_gongshang)
-            else -> result += societyInsurance.max_shebao * (societyInsurance.gr_yanglao + societyInsurance.gr_yiliao + societyInsurance.gr_shiye + societyInsurance.gr_shengyu + societyInsurance.gr_gongshang)
+            in 0.0..cityParams.insurance.minSocial -> result += cityParams.insurance.minSocial * (cityParams.insurance.p_pension + cityParams.insurance.p_medical + cityParams.insurance.p_unemployed + 0.0 + 0.0)
+            in cityParams.insurance.minSocial..cityParams.insurance.maxSocial -> result += amount * (cityParams.insurance.p_pension + cityParams.insurance.p_medical + cityParams.insurance.p_unemployed + 0.0 + 0.0)
+            else -> result += cityParams.insurance.maxSocial * (cityParams.insurance.p_pension + cityParams.insurance.p_medical + cityParams.insurance.p_unemployed + 0.0 + 0.0)
         }
         return result
     }
 
-    private fun payCompanySocietyInsurance(amount: Double, societyInsurance: SocietyInsurance): Double {
+    private fun payCompanySocietyInsurance(amount: Double, cityParams: CityParams): Double {
         var result: Double = 0.0
         when (amount) {
-            in 0.0..societyInsurance.min_gjj -> result += societyInsurance.min_gjj * (societyInsurance.gs_jichuzfgjj + societyInsurance.gs_buchongzfgjj)
-            in societyInsurance.min_gjj..societyInsurance.max_gjj -> result += amount * (societyInsurance.gs_jichuzfgjj + societyInsurance.gs_buchongzfgjj)
-            else -> result += societyInsurance.max_gjj * (societyInsurance.gs_buchongzfgjj + societyInsurance.gs_jichuzfgjj)
+            in 0.0..cityParams.insurance.minFunds -> result += cityParams.insurance.minFunds * (cityParams.insurance.c_housing + cityParams.insurance.c_housing_extra)
+            in cityParams.insurance.minFunds..cityParams.insurance.maxFunds -> result += amount * (cityParams.insurance.c_housing + cityParams.insurance.c_housing_extra)
+            else -> result += cityParams.insurance.maxFunds * (cityParams.insurance.c_housing + cityParams.insurance.c_housing_extra)
         }
         when (amount) {
-            in 0.0..societyInsurance.min_shebao -> result += societyInsurance.min_shebao * (societyInsurance.gs_yanglao + societyInsurance.gs_yiliao + societyInsurance.gs_shiye + societyInsurance.gs_shengyu + societyInsurance.gs_gongshang)
-            in societyInsurance.min_shebao..societyInsurance.max_shebao -> result += amount * (societyInsurance.gs_yanglao + societyInsurance.gs_yiliao + societyInsurance.gs_shiye + societyInsurance.gs_shengyu + societyInsurance.gs_gongshang)
-            else -> result += societyInsurance.max_shebao * (societyInsurance.gs_yanglao + societyInsurance.gs_yiliao + societyInsurance.gs_shiye + societyInsurance.gs_shengyu + societyInsurance.gs_gongshang)
+            in 0.0..cityParams.insurance.minSocial -> result += cityParams.insurance.minSocial * (cityParams.insurance.c_pension + cityParams.insurance.c_medical + cityParams.insurance.c_unemployed + cityParams.insurance.c_maternity + cityParams.insurance.c_injury)
+            in cityParams.insurance.minSocial..cityParams.insurance.maxSocial -> result += amount * (cityParams.insurance.c_pension + cityParams.insurance.c_medical + cityParams.insurance.c_unemployed + cityParams.insurance.c_maternity + cityParams.insurance.c_injury)
+            else -> result += cityParams.insurance.maxSocial * (cityParams.insurance.c_pension + cityParams.insurance.c_medical + cityParams.insurance.c_unemployed + cityParams.insurance.c_maternity + cityParams.insurance.c_injury)
         }
         return result
     }
@@ -391,12 +389,17 @@ class SalaryCalculateActivity : BaseActivity() {
     @Subscribe(threadMode = ThreadMode.MainThread)
     fun onCityEvent(citySwitch: CitySwitch) {
         (frontView!!.findViewById(R.id.city) as TextView).text = citySwitch.newCity.name + "市"
+        var housing_extra = cityParams!!.insurance.p_housing_extra
+        cityParams = CityParamsProvider.getInstance(this@SalaryCalculateActivity).getCityParams(citySwitch.newCity.name)
+        cityParams!!.insurance.p_housing_extra = housing_extra
+        cityParams!!.insurance.c_housing_extra = housing_extra
     }
 
     @Subscribe(threadMode = ThreadMode.MainThread)
     fun onGjjEvent(gjj: BuchonggjjEvent) {
         (frontView!!.findViewById(R.id.buchongzfgjj_param) as TextView).text = getString(R.string.buchongzfgjj) + "：" + gjj.params.toString() + "%"
-        buchonggjj = gjj.params.toDouble() / 100
+        cityParams!!.insurance.p_housing_extra = gjj.params.toDouble() / 100
+        cityParams!!.insurance.c_housing_extra = gjj.params.toDouble() / 100
     }
 
     override fun onBackPressed() {

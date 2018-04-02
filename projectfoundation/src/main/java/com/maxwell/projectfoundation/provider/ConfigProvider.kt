@@ -34,9 +34,11 @@ class ConfigProvider {
             }
 
             override fun onResponse(call: Call?, response: Response?) {
-                var body = response?.body()?.string()
-                if (response != null && !body.isNullOrEmpty()) {
-                    salaryConfig = Gson().fromJson(body, SalaryConfig::class.java)
+                if (response?.code() == 200) {
+                    var body = response?.body()?.string()
+                    if (response != null && !body.isNullOrEmpty()) {
+                        salaryConfig = Gson().fromJson(body, SalaryConfig::class.java)
+                    }
                 }
             }
 
